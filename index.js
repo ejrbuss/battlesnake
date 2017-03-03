@@ -42,7 +42,7 @@ app.use((err, req, res, next) => {
         res.status(404);
         res.send({
             status : 404,
-            error  : err.message || "These are not the snakes you're looking for"
+            error  : err.message || "These are not the sneks you're looking for"
         });
     }
 });
