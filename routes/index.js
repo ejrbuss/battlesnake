@@ -1,32 +1,25 @@
-var express = require('express')
-var router  = express.Router()
+const ai      = require('../ai/core');
+const express = require('express');
+const router  = express.Router();
 
 // Handle POST request to '/start'
-router.post('/start', function (req, res) {
-  // NOTE: Do something here to start the game
-
-  // Response data
-  var data = {
-    color: "#DFFF00",
-    name: "Trump Snake",
-    head_url: "http://www.placecage.com/c/200/200", // optional, but encouraged!
-    taunt: "Let's do thisss thang!", // optional, but encouraged!
-  }
-
-  return res.json(data)
+router.post('/start', (req, res) => {
+    ai.start(req);
+    // Response data
+    return res.json({
+        color    : "#DFFF00",
+        name     : "Snek",
+        head_url : "http://www.placecage.com/c/200/200", // optional, but encouraged!
+        taunt    : "Let's do thisss thang!",             // optional, but encouraged!
+    });
 })
 
 // Handle POST request to '/move'
-router.post('/move', function (req, res) {
-  // NOTE: Do something here to generate your move
-
-  // Response data
-  var data = {
-    move: 'up', // one of: ['up','down','left','right']
-    taunt: 'Outta my way, snake!', // optional, but encouraged!
-  }
-
-  return res.json(data)
+router.post('/move', (req, res) => {
+    res.json({
+        move  :  ai.move(req),          // one of: ['up','down','left','right']
+        taunt : 'Outta my way, snake!', // optional, but encouraged!
+    });
 })
 
-module.exports = router
+module.exports = router;

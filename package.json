@@ -16,9 +16,12 @@
   ],
   "dependencies": {
     "body-parser": "^1.16.1",
+    "chai": "^3.5.0",
     "express": "^4.14.1",
+    "mocha": "^3.2.0",
     "morgan": "^1.8.1",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "request": "^2.79.0"
   },
   "devDependencies": {
     "foreman": "^2.0.0"
