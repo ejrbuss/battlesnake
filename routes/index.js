@@ -25,6 +25,7 @@ function move(req, res) {
     try {
         move = ai.move(req.body);
     } catch(err) {
+        logger.log(err);
         console.log(err);
     }
     res.json({
