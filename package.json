@@ -36,11 +36,11 @@
     "mocha": "mocha",
   },
   "pre-commit": {
-    "silent": true
+    "silent": true,
+    "run": [
+      "mocha"
+    ]
   },
-  "pre-commit": [
-    "mocha"
-  ],
   "bugs": {
     "url": "https://github.com/sendwithus/battlesnake-node/issues"
   },
