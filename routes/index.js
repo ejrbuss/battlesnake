@@ -21,7 +21,7 @@ router.post('/move', (req, res) => {
         console.log(err);
     }
     res.json({
-        move  :  move || 'up',          // one of: ['up','down','left','right']
+        move  :  move || 'left',        // one of: ['up','down','left','right']
         taunt : 'Outta my way, snake!', // optional, but encouraged!
     })
 });
