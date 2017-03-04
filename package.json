@@ -35,12 +35,9 @@
     "start": "nf start",
     "mocha": "mocha",
   },
-  "pre-commit": {
-    "silent": true,
-    "run": [
-      "mocha"
-    ]
-  },
+  "pre-commit": [
+      "mocha", "silent":true
+  ],
   "bugs": {
     "url": "https://github.com/sendwithus/battlesnake-node/issues"
   },
