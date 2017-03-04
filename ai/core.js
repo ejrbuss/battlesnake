@@ -1,8 +1,11 @@
-const type = require('../lib/type');
-const util = require('./util');
+const type   = require('../lib/type');
+const logger = require('../lib/logger');
+const util   = require('./util');
 
 function move(req) {
     // Validate request
+
+    logger.log({ status : 'entered core' });
 
     type(req.you).assert.string;
     type(req.game_id).assert.string;
@@ -12,15 +15,15 @@ function move(req) {
     type(req.food).assert.array;
     type(req.snakes).assert.object;
 
-    util.marker();
+    logger.log({ status : 'passed asserts' });
     let data = setup(req);
-    util.marker();
+    logger.log({ status : 'setup', data : data });
     let goal = next(data);
-    util.marker();
+    logger.log({ status : 'next', next : next });
     let step = goto(data, goal);
-    util.marker();
+    logger.log({ status : 'step', step : step });
     let move = todirection(data, step);
-    util.print('done');
+    logger.log({ status : 'todirection', move : move });
     return move;
 }
 

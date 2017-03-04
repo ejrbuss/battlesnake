@@ -36,4 +36,9 @@ router.get('/logs', (req, res) =>
     res.json(logger.getLogs())
 );
 
+// clear logs
+router.get('/clear', (req, res) =>
+    res.json(logger.clear())
+);
+
 module.exports = router;
