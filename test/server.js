@@ -24,4 +24,10 @@ describe('battle-snek server', function() {
             done();
         });
     });
+    it('should respond to /log', function(done) {
+        request.get('http://localhost:9001/logs', (err, res, body) => {
+            console.log(res.body);
+            done();
+        });
+    })
 });

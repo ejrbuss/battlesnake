@@ -15,7 +15,6 @@ router.post('/start', (req, res) =>
 
 // Handle POST request to '/move'
 router.post('/move', (req, res) => {
-    logger.log(req);
     let move;
     try {
         move = ai.move(req.body);
@@ -25,7 +24,11 @@ router.post('/move', (req, res) => {
     res.json({
         move  :  move || 'left',        // one of: ['up','down','left','right']
         taunt : 'Outta my way, snake!', // optional, but encouraged!
-    })
+    });
+    logger.log({
+        request : req.body,
+        move    : move || 'left'
+    });
 });
 
 // Get logs
