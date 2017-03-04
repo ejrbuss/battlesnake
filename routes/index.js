@@ -1,3 +1,4 @@
+const logger  = require('../lib/logger');
 const ai      = require('../ai/core');
 const express = require('express');
 const router  = express.Router();
@@ -14,6 +15,7 @@ router.post('/start', (req, res) =>
 
 // Handle POST request to '/move'
 router.post('/move', (req, res) => {
+    logger.log(req);
     let move;
     try {
         move = ai.move(req.body);
@@ -25,5 +27,10 @@ router.post('/move', (req, res) => {
         taunt : 'Outta my way, snake!', // optional, but encouraged!
     })
 });
+
+// Get logs
+router.get('/logs', (req, res) =>
+    res.json(logger.getLogs())
+);
 
 module.exports = router;
