@@ -4,6 +4,9 @@ const express = require('express');
 const router  = express.Router();
 
 // Handle POST request to '/start'
+router.post('//start', (req, resa) =>
+    res.redirect('/start')
+);
 router.post('/start', (req, res) =>
     res.json({
         color    : "#DFFF00",
@@ -14,6 +17,9 @@ router.post('/start', (req, res) =>
 );
 
 // Handle POST request to '/move'
+router.post('//move', (req, resa) =>
+    res.redirect('/move')
+);
 router.post('/move', (req, res) => {
     let move;
     try {
