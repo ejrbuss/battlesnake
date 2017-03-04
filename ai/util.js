@@ -17,20 +17,58 @@ module.exports = {
         return data;
     },
 
+    dataCopy(data) {
+        return JSON.parse(JSON.stringify(data));
+    },
+
+    dataEqual(a, b) {
+        return JSON.stringify(a) === JSON.stringify(b);
+    },
+
+    selectRandom(set) {
+        return set[Math.floor(Math.random() * set.length)];
+    },
+
+    randomMove(point) {
+        return this[this.selectRandom(['left', 'right', 'up', 'down'])](point);
+    },
+
+    nextBoardHeuristic(data) {
+        let next = this.dataCopy(data);
+        next.snakes.map(snake => {
+            if(snake.id !== data.you.id) {
+                snake.coords.shift(this.randomMove(snake.coords[0]));
+            }
+            return snake;
+        });
+        return next;
+    },
+
     marker() {
         this.print('.', false, true);
     },
 
-    safe(data, point) {
-        return !(
-            point[0] < 0 ||
-            point[1] < 0 ||
-            point[0] >= data.width  ||
-            point[1] >= data.height ||
-            data.snakes.some(snake =>
-                snake.coords.some(coord =>
-                    this.pequal(coord, point)
-        )));
+    safe(data, point, depth=1) {
+        if(depth === 1) {
+            return !(
+                point[0] < 0 ||
+                point[1] < 0 ||
+                point[0] >= data.width  ||
+                point[1] >= data.height ||
+                data.snakes.some(snake =>
+                    snake.coords.some(coord =>
+                        this.pequal(coord, point)
+            )));
+        } else {
+            let next = this.nextBoardHeuristic(data);
+            depth--;
+            return this.safe(data, point) && (
+                this.safe(next, this.left(point),  depth) ||
+                this.safe(next, this.right(point), depth) ||
+                this.safe(next, this.up(point),    depth) ||
+                this.safe(next, this.down(point),  depth)
+            );
+        }
     },
 
     head(snake) {
