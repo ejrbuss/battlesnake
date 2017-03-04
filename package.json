@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "nf start",
-    "fail": echo "this should fail",
+    "fail": "echo \"this should fail\" && exit 1",
     "mocha_test": "node node_modules/mocha/bin/mocha"
   },
   "pre-commit": ["fail", "mocha_test"],
