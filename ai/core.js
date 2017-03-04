@@ -39,14 +39,14 @@ function next(data) {
 function goto(data, goal) {
 
     let adjacent = util.adjacent(util.head(data.you));
-    let min      = util.distanceSquared(adjacent[0], goal);
+    let min      = -1
     let step     = adjacent[0];
 
     adjacent.forEach(point => {
 
         let d = util.distanceSquared(point, goal);
 
-        if(d < min && util.safe(data, point)) {
+        if((min === -1 || d < min) && util.safe(data, point)) {
             min  = d;
             step = point;
         }

@@ -10,7 +10,7 @@ router.post('/start', start);
 function start(req, res) {
     res.json({
         color    : "#DFFF00",
-        name     : "Snek",
+        name     : "Leech Snek",
         head_url : "http://www.placecage.com/c/200/200", // optional, but encouraged!
         taunt    : "Let's do thisss thang!",             // optional, but encouraged!
     });
