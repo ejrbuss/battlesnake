@@ -31,7 +31,7 @@
     "node": "6.x"
   },
   "scripts": {
-    "start": "nf start"
+    "start": "nf start",
     "mocha_test": "node node_modules/mocha/bin/mocha"
   },
   "pre-commit": ["mocha_test"],
