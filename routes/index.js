@@ -32,10 +32,6 @@ function move(req, res) {
         move  :  move || 'left',        // one of: ['up','down','left','right']
         taunt : 'Outta my way, snake!', // optional, but encouraged!
     });
-    logger.log({
-        request : req.body,
-        move    : move || 'left'
-    });
 }
 
 // Get logs

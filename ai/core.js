@@ -42,11 +42,14 @@ function next(data) {
 
         let d = util.distanceSquared(point, data.head);
 
-        if((min === -1 || d < min) && util.safe(data, point, 512)) {
+        if((min === -1 || d < min) && util.safe(data, point, 128)) {
             min  = d;
             goal = point;
         }
     });
+    if(min === -1) {
+        logger.log({ status : 'found no safe move' });
+    }
     return goal;
 }
 
