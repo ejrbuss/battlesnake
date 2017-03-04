@@ -1,6 +1,6 @@
 const type = require('../lib/type');
 
-module.exports = {
+const util = {
 
     print(data, json=true, nonewline=false) {
         if(nonewline) {
@@ -30,22 +30,20 @@ module.exports = {
     },
 
     randomMove(point) {
-        return this[this.selectRandom(['left', 'right', 'up', 'down'])](point);
+        return util[util.selectRandom(['left', 'right', 'up', 'down'])](point);
     },
 
-    nextBoardHeuristic(data) {
-        let next = this.dataCopy(data);
+    nextBoardHeuristic(data, selfMove) {
+        let next = util.dataCopy(data);
+        selfMove = selfMove || util.selectRandom;
+
         next.snakes.map(snake => {
-            if(snake.id !== data.you.id) {
-                snake.coords.shift(this.randomMove(snake.coords[0]));
-            }
+            snake.id !== data.you.id
+                ? snake.coords.unshift(util.randomMove(snake.coords[0]))
+                : snake.coords.unshift(selfMove(snake.coords[0]));
             return snake;
         });
         return next;
-    },
-
-    marker() {
-        this.print('.', false, true);
     },
 
     safe(data, point, depth=1) {
@@ -57,16 +55,15 @@ module.exports = {
                 point[1] >= data.height ||
                 data.snakes.some(snake =>
                     snake.coords.some(coord =>
-                        this.pequal(coord, point)
+                        util.pequal(coord, point)
             )));
         } else {
-            let next = this.nextBoardHeuristic(data);
             depth--;
-            return this.safe(data, point) && (
-                this.safe(next, this.left(point),  depth) ||
-                this.safe(next, this.right(point), depth) ||
-                this.safe(next, this.up(point),    depth) ||
-                this.safe(next, this.down(point),  depth)
+            return util.safe(data, point) && (
+                util.safe(util.nextBoardHeuristic(data, util.left),  util.left(point),  depth) ||
+                util.safe(util.nextBoardHeuristic(data, util.right), util.right(point), depth) ||
+                util.safe(util.nextBoardHeuristic(data, util.up),    util.up(point),    depth) ||
+                util.safe(util.nextBoardHeuristic(data, util.down),  util.down(point),  depth)
             );
         }
     },
@@ -77,10 +74,10 @@ module.exports = {
 
     adjacent(point) {
         return [
-            this.left(point),
-            this.right(point),
-            this.up(point),
-            this.down(point)
+            util.left(point),
+            util.right(point),
+            util.up(point),
+            util.down(point)
         ];
     },
 
@@ -90,7 +87,7 @@ module.exports = {
     },
 
     distance(point1, point2) {
-        return Math.sqrt(this.distanceSquared(point1, point2));
+        return Math.sqrt(util.distanceSquared(point1, point2));
     },
 
     pequal(point1, point2) {
@@ -101,7 +98,8 @@ module.exports = {
     left (point) { return [point[0] - 1, point[1]]; },
     right(point) { return [point[0] + 1, point[1]]; },
     up   (point) { return [point[0], point[1] - 1]; },
-    down (point) { return [point[0], point[1] + 1]; }
-
+    down (point) { return [point[0], point[1] + 1]; },
 
 };
+
+module.exports = util;
