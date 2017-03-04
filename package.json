@@ -35,6 +35,9 @@
     "start": "nf start",
     "mocha": "mocha",
   },
+  "pre-commit": {
+    "silent": true
+  },
   "pre-commit": [
     "mocha"
   ],
