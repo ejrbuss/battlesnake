@@ -9,10 +9,12 @@ router.post('/start', start);
 
 function start(req, res) {
     res.json({
-        color    : "#DFFF00",
-        name     : "Leech Snek",
-        head_url : "http://www.placecage.com/c/200/200", // optional, but encouraged!
-        taunt    : "Let's do thisss thang!",             // optional, but encouraged!
+        color           : "#6A6676",
+        secondary_color : "#807D8B",
+        name            : "Leech Snek",
+        taunt           : "Good luck, have fun!",
+        head_type       : "sand-worm",
+        tail_type       : "block-bum"
     });
 }
 
@@ -21,16 +23,16 @@ router.post('//move', move);
 router.post('/move', move);
 
 function move(req, res) {
-    let move;
+    let move, taunt;
     try {
-        move = ai.move(req.body);
+        [move, taunt] = ai.move(req.body);
     } catch(err) {
         logger.log({ error : err });
         console.log(err);
     }
     res.json({
-        move  :  move || 'left',        // one of: ['up','down','left','right']
-        taunt : 'Outta my way, snake!', // optional, but encouraged!
+        move  : move  || 'left',
+        taunt : taunt || 'I crashed >_<',
     });
 }
 

@@ -47,6 +47,9 @@ const util = {
         selfMove = selfMove || util.selectRandom;
 
         next.snakes.map(snake => {
+            if(snake.id === data.you.id) {
+                snake.coords.unshift(selfMove(snake.coords[0]));
+            }
             snake.id !== data.you.id
                 ? snake.coords.unshift(util.randomSafeMove(snake.coords[0]))
                 : snake.coords.unshift(selfMove(snake.coords[0]));

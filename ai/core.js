@@ -1,10 +1,14 @@
 const type   = require('../lib/type');
 const logger = require('../lib/logger');
 const util   = require('./util');
+const taunt  = require('./taunts');
+
+let hopeless;
 
 function move(req) {
     // Validate request
 
+    hopeless = false; // There's still a chance!
     logger.log({ status : 'entered core' });
 
     type(req.you).assert.string;
@@ -24,7 +28,9 @@ function move(req) {
     logger.log({ status : 'step', step : step });
     let move = todirection(data, step);
     logger.log({ status : 'todirection', move : move });
-    return move;
+    return hopeless
+        ? seppuku(data)
+        : move;
 }
 
 function setup(data) {
@@ -74,18 +80,22 @@ function goto(data, goal) {
 function todirection(data, step) {
 
     if(util.pequal(util.left(data.head), step)) {
-        return 'left';
+        return ['left', taunt()];
     }
     if(util.pequal(util.right(data.head), step)) {
-        return 'right';
+        return ['right', taunt()];
     }
     if(util.pequal(util.up(data.head), step)) {
-        return 'up';
+        return ['up', taunt()];
     }
     if(util.pequal(util.down(data.head), step)) {
-        return 'down';
+        return ['down', taunt()];
     }
     throw new Error('Could not convert step into a valid move, not adjacent to snake.');
+}
+
+function seppuku(data) {
+    return [todirection(data, data.you.coords[1])[0], 'snekeppuku!'];
 }
 
 module.exports = { move };
