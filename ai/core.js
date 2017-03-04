@@ -3,6 +3,7 @@ const util = require('./util');
 
 function move(req) {
     // Validate request
+    /*
     type(req.you).assert.string;
     type(req.game_id).assert.string;
     type(req.width).assert.integer;
@@ -10,6 +11,7 @@ function move(req) {
     type(req.turn).assert.integer;
     type(req.food).assert.array;
     type(req.snakes).assert.object;
+    */
 
     return 'left';
 
