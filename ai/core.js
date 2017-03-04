@@ -70,10 +70,11 @@ function goto(data, goal) {
             min  = d;
             step = point;
         }
-        if(min === -1) {
-            logger.log({ status : 'found no safe move' });
-        }
+
     });
+    if(min === -1) {
+        logger.log({ status : 'found no safe move' });
+    }
     return step;
 }
 
