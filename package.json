@@ -32,8 +32,7 @@
   },
   "scripts": {
     "start": "nf start",
-    "fail": "echo \"this should fail\" && exit 1",
-    "mocha_test": "node node_modules/mocha/bin/mocha"
+    "mocha_test": "./node_modules/bin/mocha --reporter spec"
   },
   "pre-commit": ["fail", "mocha_test"],
   "bugs": {
