@@ -5,7 +5,7 @@ module.exports = {
     print(data, json=true, nonewline=false) {
         if(nonewline) {
             process.stdout.write((type(data).object && json)
-                ? JSON.stringify(data)
+                ? JSON.stringify(data, null, 4)
                 : data
             );
         } else {
@@ -27,7 +27,7 @@ module.exports = {
             point[1] < 0 ||
             point[0] >= data.width  ||
             point[1] >= data.height ||
-            data.snake.some(snake =>
+            data.snakes.some(snake =>
                 snake.coords.some(coord =>
                     this.pequal(coord, point)
         )));

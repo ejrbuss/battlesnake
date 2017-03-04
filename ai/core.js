@@ -17,7 +17,7 @@ function move(req) {
 
     logger.log({ status : 'passed asserts' });
     let data = setup(req);
-    logger.log({ status : 'setup', data : data });
+    logger.log({ status : 'setup' });
     let goal = next(data);
     logger.log({ status : 'next', goal : goal });
     let step = goto(data, goal);
