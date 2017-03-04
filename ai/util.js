@@ -1,4 +1,5 @@
-const type = require('../lib/type');
+const logger = require('../lib/logger');
+const type   = require('../lib/type');
 
 const util = {
 
@@ -38,7 +39,7 @@ const util = {
     },
 
     randomSafeMove(point) {
-        console.log('TODO: randomSafeMove');
+        //console.log('TODO: randomSafeMove');
         return util.randomMove(point);
     },
 
@@ -46,14 +47,12 @@ const util = {
         let next = util.dataCopy(data);
         selfMove = selfMove || util.selectRandom;
 
-        next.snakes.map(snake => {
+        next.snakes.forEach(snake => {
             if(snake.id === data.you.id) {
                 snake.coords.unshift(selfMove(snake.coords[0]));
+            } else {
+                snake.coords.unshift(util.randomSafeMove(snake.coords[0]));
             }
-            snake.id !== data.you.id
-                ? snake.coords.unshift(util.randomSafeMove(snake.coords[0]))
-                : snake.coords.unshift(selfMove(snake.coords[0]));
-            return snake;
         });
         return next;
     },
@@ -74,6 +73,7 @@ const util = {
             return false;
         }
         if(depth === 1) {
+            logger.log(point);
             return true;
         } else {
             if(modifier) {
@@ -85,7 +85,7 @@ const util = {
                 util.safe(data, point, depth, util.right) ||
                 util.safe(data, point, depth, util.up)    ||
                 util.safe(data, point, depth, util.down)
-            );
+            ) && logger.log(point) && true;
         }
     },
 

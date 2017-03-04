@@ -58,7 +58,7 @@ function next(data) {
 
 function goto(data, goal) {
 
-    let adjacent = util.adjacent(util.head(data.you));
+    let adjacent = util.adjacent(data.head);
     let min      = -1
     let step     = adjacent[0];
 
@@ -70,16 +70,18 @@ function goto(data, goal) {
             min  = d;
             step = point;
         }
-
     });
     if(min === -1) {
-        logger.log({ status : 'found no safe move' });
+        hopeless = true;
+        logger.log({ status : 'hopeless ;_;' });
     }
     return step;
 }
 
 function todirection(data, step) {
-
+    if(util.pequal(data.head, step)) {
+        return [util.left(data.head), taunt()];
+    }
     if(util.pequal(util.left(data.head), step)) {
         return ['left', taunt()];
     }
@@ -96,7 +98,7 @@ function todirection(data, step) {
 }
 
 function seppuku(data) {
-    return [todirection(data, data.you.coords[1])[0], 'snekeppuku!'];
+    return [todirection(data, data.you.coords[1]), 'snekeppuku!'];
 }
 
 module.exports = { move };
