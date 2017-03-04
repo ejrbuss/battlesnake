@@ -99,6 +99,7 @@ const util = {
     right(point) { return [point[0] + 1, point[1]]; },
     up   (point) { return [point[0], point[1] - 1]; },
     down (point) { return [point[0], point[1] + 1]; },
+    center(data) { return [data.width / 2, data.height / 2] }
 
 };
 

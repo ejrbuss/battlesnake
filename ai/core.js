@@ -28,12 +28,26 @@ function move(req) {
 }
 
 function setup(data) {
-    data.you = data.snakes.find(snake => snake.id === data.you);
+    data.you  = data.snakes.find(snake => snake.id === data.you);
+    data.head = util.head(data.you);
     return data;
 }
 
 function next(data) {
-    return data.food[0];
+
+    let min  = -1;
+    let goal = data.food[0];
+
+    data.food.forEach(point => {
+
+        let d = util.distanceSquared(point, data.head);
+
+        if((min === -1 || d < min) && util.safe(data, point, 128)) {
+            min  = d;
+            goal = point;
+        }
+    });
+    return goal;
 }
 
 function goto(data, goal) {
@@ -56,18 +70,16 @@ function goto(data, goal) {
 
 function todirection(data, step) {
 
-    let head = util.head(data.you);
-
-    if(util.pequal(util.left(head), step)) {
+    if(util.pequal(util.left(data.head), step)) {
         return 'left';
     }
-    if(util.pequal(util.right(head), step)) {
+    if(util.pequal(util.right(data.head), step)) {
         return 'right';
     }
-    if(util.pequal(util.up(head), step)) {
+    if(util.pequal(util.up(data.head), step)) {
         return 'up';
     }
-    if(util.pequal(util.down(head), step)) {
+    if(util.pequal(util.down(data.head), step)) {
         return 'down';
     }
     throw new Error('Could not convert step into a valid move, not adjacent to snake.');
