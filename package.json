@@ -40,7 +40,7 @@
 	"run": [
       "mocha"
 	]
-  }
+  },
   "bugs": {
     "url": "https://github.com/sendwithus/battlesnake-node/issues"
   },
