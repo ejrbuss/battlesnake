@@ -4,23 +4,23 @@ const express = require('express');
 const router  = express.Router();
 
 // Handle POST request to '/start'
-router.post('//start', (req, resa) =>
-    res.redirect('/start')
-);
-router.post('/start', (req, res) =>
+router.post('//start', start);
+router.post('/start', start);
+
+function start(req, res) {
     res.json({
         color    : "#DFFF00",
         name     : "Snek",
         head_url : "http://www.placecage.com/c/200/200", // optional, but encouraged!
         taunt    : "Let's do thisss thang!",             // optional, but encouraged!
-    })
-);
+    });
+}
 
 // Handle POST request to '/move'
-router.post('//move', (req, resa) =>
-    res.redirect('/move')
-);
-router.post('/move', (req, res) => {
+router.post('//move', move);
+router.post('/move', move);
+
+function move(req, res) {
     let move;
     try {
         move = ai.move(req.body);
@@ -35,7 +35,7 @@ router.post('/move', (req, res) => {
         request : req.body,
         move    : move || 'left'
     });
-});
+}
 
 // Get logs
 router.get('/logs', (req, res) =>
