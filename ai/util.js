@@ -38,7 +38,7 @@ const util = {
     },
 
     randomSafeMove(point) {
-        conole.log('TODO: randomSafeMove');
+        console.log('TODO: randomSafeMove');
         return randomMove(point);
     },
 
