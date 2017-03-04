@@ -56,7 +56,6 @@ const util = {
     },
 
     safe(data, point, depth=1, modifier) {
-
         if(modifier) {
             point = modifier(point);
         }
