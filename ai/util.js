@@ -2,6 +2,10 @@ const type = require('../lib/type');
 
 const util = {
 
+    identity(data) {
+        return data;
+    },
+
     print(data, json=true, nonewline=false) {
         if(nonewline) {
             process.stdout.write((type(data).object && json)
@@ -33,37 +37,52 @@ const util = {
         return util[util.selectRandom(['left', 'right', 'up', 'down'])](point);
     },
 
+    randomSafeMove(point) {
+        conole.log('TODO: randomSafeMove');
+        return randomMove(point);
+    },
+
     nextBoardHeuristic(data, selfMove) {
         let next = util.dataCopy(data);
         selfMove = selfMove || util.selectRandom;
 
         next.snakes.map(snake => {
             snake.id !== data.you.id
-                ? snake.coords.unshift(util.randomMove(snake.coords[0]))
+                ? snake.coords.unshift(util.randomSafeMove(snake.coords[0]))
                 : snake.coords.unshift(selfMove(snake.coords[0]));
             return snake;
         });
         return next;
     },
 
-    safe(data, point, depth=1) {
+    safe(data, point, depth=1, modifier) {
+
+        if(modifier) {
+            point = modifier(point);
+        }
+
+        if(point[0] < 0
+            || point[1] < 0
+            || point[0] >= data.width
+            || point[1] >= data.height
+            || data.snakes.some(snake =>
+                snake.coords.some(coord =>
+                    util.pequal(coord, point)
+        ))) {
+            return false;
+        }
         if(depth === 1) {
-            return !(
-                point[0] < 0 ||
-                point[1] < 0 ||
-                point[0] >= data.width  ||
-                point[1] >= data.height ||
-                data.snakes.some(snake =>
-                    snake.coords.some(coord =>
-                        util.pequal(coord, point)
-            )));
+            return true;
         } else {
+            if(modifier) {
+                data = util.nextBoardHeuristic(data, modifier);
+            }
             depth--;
-            return util.safe(data, point) && (
-                util.safe(util.nextBoardHeuristic(data, util.left),  util.left(point),  depth) ||
-                util.safe(util.nextBoardHeuristic(data, util.right), util.right(point), depth) ||
-                util.safe(util.nextBoardHeuristic(data, util.up),    util.up(point),    depth) ||
-                util.safe(util.nextBoardHeuristic(data, util.down),  util.down(point),  depth)
+            return (
+                util.safe(data, point, depth, util.left)  ||
+                util.safe(data, point, depth, util.right) ||
+                util.safe(data, point, depth, util.up)    ||
+                util.safe(data, point, depth, util.down)
             );
         }
     },

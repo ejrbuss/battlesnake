@@ -42,7 +42,7 @@ function next(data) {
 
         let d = util.distanceSquared(point, data.head);
 
-        if((min === -1 || d < min) && util.safe(data, point, 128)) {
+        if((min === -1 || d < min) && util.safe(data, point, 512)) {
             min  = d;
             goal = point;
         }
