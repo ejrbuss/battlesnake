@@ -33,11 +33,14 @@
   },
   "scripts": {
     "start": "nf start",
-    "mocha": "mocha",
+    "mocha": "mocha"
   },
-  "pre-commit": [
+  "pre-commit": {
+	"run": [
       "mocha"
-  ],
+	],
+	"silent": true
+  }
   "bugs": {
     "url": "https://github.com/sendwithus/battlesnake-node/issues"
   },
