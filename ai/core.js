@@ -33,7 +33,7 @@ function setup(data) {
 }
 
 function next(data) {
-    return [0, 0];
+    return data.food[0];
 }
 
 function goto(data, goal) {
