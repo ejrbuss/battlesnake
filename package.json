@@ -16,16 +16,16 @@
   ],
   "dependencies": {
     "body-parser": "^1.16.1",
-    "chai": "^3.5.0",
     "express": "^4.14.1",
-    "mocha": "^3.2.0",
     "morgan": "^1.8.1",
-    "nodemon": "^1.11.0",
-    "request": "^2.79.0"
+    "nodemon": "^1.11.0"
   },
   "devDependencies": {
     "foreman": "^2.0.0",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "chai": "^3.5.0",
+    "request": "^2.79.0",
+    "mocha": "^3.2.0"
   },
   "main": "index.js",
   "engines": {
@@ -36,10 +36,10 @@
     "mocha": "mocha"
   },
   "pre-commit": {
-	"silent": true,
-	"run": [
+    "silent": true,
+    "run": [
       "mocha"
-	]
+    ]
   },
   "bugs": {
     "url": "https://github.com/sendwithus/battlesnake-node/issues"
