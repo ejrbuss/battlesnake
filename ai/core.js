@@ -11,6 +11,8 @@ function move(req) {
     type(req.food).assert.array;
     type(req.snakes).assert.object;
 
+    return 'left';
+
     util.marker();
     let data = setup(req);
     util.marker();
