@@ -36,7 +36,7 @@
     "mocha": "mocha",
   },
   "pre-commit": [
-      "mocha", "silent":true
+      "mocha"
   ],
   "bugs": {
     "url": "https://github.com/sendwithus/battlesnake-node/issues"
