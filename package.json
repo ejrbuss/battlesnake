@@ -32,7 +32,9 @@
   },
   "scripts": {
     "start": "nf start"
+    "mocha_test": mocha
   },
+  "pre-commit": ["mocha_test"],
   "bugs": {
     "url": "https://github.com/sendwithus/battlesnake-node/issues"
   },
