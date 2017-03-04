@@ -6,6 +6,7 @@
 const bodyParser = require('body-parser');
 const express    = require('express');
 const logger     = require('morgan');
+const logger2    = require('./lib/logger');
 const app        = express();
 const routes     = require('./routes');
 
@@ -39,6 +40,7 @@ app.use((err, req, res, next) => {
     if (err.status !== 404) {
         next(err);
     } else {
+        logger2.log({ status : 404, url : req.url })
         res.status(404);
         res.send({
             status : 404,

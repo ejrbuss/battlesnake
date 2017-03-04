@@ -1,8 +1,12 @@
+const logger  = require('../lib/logger');
 const ai      = require('../ai/core');
 const express = require('express');
 const router  = express.Router();
 
 // Handle POST request to '/start'
+router.post('//start', (req, resa) =>
+    res.redirect('/start')
+);
 router.post('/start', (req, res) =>
     res.json({
         color    : "#DFFF00",
@@ -13,6 +17,9 @@ router.post('/start', (req, res) =>
 );
 
 // Handle POST request to '/move'
+router.post('//move', (req, resa) =>
+    res.redirect('/move')
+);
 router.post('/move', (req, res) => {
     let move;
     try {
@@ -21,9 +28,23 @@ router.post('/move', (req, res) => {
         console.log(err);
     }
     res.json({
-        move  :  move || 'up',          // one of: ['up','down','left','right']
+        move  :  move || 'left',        // one of: ['up','down','left','right']
         taunt : 'Outta my way, snake!', // optional, but encouraged!
-    })
+    });
+    logger.log({
+        request : req.body,
+        move    : move || 'left'
+    });
 });
+
+// Get logs
+router.get('/logs', (req, res) =>
+    res.json(logger.getLogs())
+);
+
+// clear logs
+router.get('/clear', (req, res) =>
+    res.json(logger.clear())
+);
 
 module.exports = router;

@@ -18,10 +18,16 @@ describe('battle-snek server', function() {
         });
     });
     it('should respond to /move', function(done) {
-        request.post('http://localhost:9001/move', (err, res, body) => {
+        request.post('http://localhost:9001/move',{ "json" : require('./request') }, (err, res, body) => {
             expect(res.statusCode).to.equal(200);
-            expect(JSON.parse(res.body)).to.include.keys('move');
+            expect(res.body).to.include.keys('move');
             done();
         });
     });
+    it('should respond to /log', function(done) {
+        request.get('http://localhost:9001/logs', (err, res, body) => {
+            console.log(res.body);
+            done();
+        });
+    })
 });
