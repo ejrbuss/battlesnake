@@ -21,7 +21,6 @@ describe('battle-snek server', function() {
         request.post('http://localhost:9001/move', (err, res, body) => {
             expect(res.statusCode).to.equal(200);
             expect(JSON.parse(res.body)).to.include.keys('move');
-			throw error;
             done();
         });
     });

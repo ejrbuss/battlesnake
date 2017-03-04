@@ -24,7 +24,8 @@
     "request": "^2.79.0"
   },
   "devDependencies": {
-    "foreman": "^2.0.0"
+    "foreman": "^2.0.0",
+    "pre-commit": "^1.2.2"
   },
   "main": "index.js",
   "engines": {
@@ -32,11 +33,11 @@
   },
   "scripts": {
     "start": "nf start",
-    "echo": "echo \"this should fail...\"",
     "mocha": "mocha",
-    "test": "run node_modules/mocha/bin/mocha --reporter spec"
   },
-  "pre-commit": ["echo", "mocha"],
+  "pre-commit": [
+    "mocha"
+  ],
   "bugs": {
     "url": "https://github.com/sendwithus/battlesnake-node/issues"
   },
