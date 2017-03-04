@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "nf start"
-    "mocha_test": "mocha"
+    "mocha_test": "node node_modules/mocha/bin/mocha"
   },
   "pre-commit": ["mocha_test"],
   "bugs": {
