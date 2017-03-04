@@ -19,7 +19,7 @@ function move(req) {
     let data = setup(req);
     logger.log({ status : 'setup', data : data });
     let goal = next(data);
-    logger.log({ status : 'next', next : next });
+    logger.log({ status : 'next', goal : goal });
     let step = goto(data, goal);
     logger.log({ status : 'step', step : step });
     let move = todirection(data, step);
