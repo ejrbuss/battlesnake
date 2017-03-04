@@ -39,7 +39,7 @@ const util = {
 
     randomSafeMove(point) {
         console.log('TODO: randomSafeMove');
-        return randomMove(point);
+        return util.randomMove(point);
     },
 
     nextBoardHeuristic(data, selfMove) {
