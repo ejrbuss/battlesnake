@@ -52,42 +52,6 @@ const util = {
         });
         return next;
     },
-/*
-    safe(data, point, depth=1) {
-        if(depth === 1) {
-            return !(point[0] < 0
-                || point[1] < 0
-                || point[0] >= data.width
-                || point[1] >= data.height
-                || data.snakes.some(snake =>
-                    snake.coords.some(coord =>
-                        util.pequal(coord, point)
-            )));
-        }
-        // [parent, point, depth]
-        let queue = [[point, point, depth - 1]];
-        while(queue.length) {
-            let [parent, child, depth] = queue.pop();
-            if(util.safe(data, child)) {
-                if(depth > 1) {
-                    depth--;
-                    queue.push([child, util.left(child),  depth]);
-                    queue.push([child, util.right(child), depth]);
-                    queue.push([child, util.up(child),    depth]);
-                    //queue.push([child, util.down(child),  depth]);
-                }
-            } else {
-                if(util.pequal(point, parent)) {
-                    return false;
-                }
-                queue.filter(([_, check]) =>
-                   !util.pequal(check, parent)
-                );
-            }
-        }
-        return true
-    },
-    */
 
     safe(data, point, depth=1, modifier) {
 

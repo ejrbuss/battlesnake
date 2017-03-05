@@ -56,27 +56,6 @@ function next(data) {
         }
     });
     return goal;
-
-    /*let food = data.food.filter(point =>
-        util.distanceSquared(point, data.head) <
-        data.otherSnakes.reduce((min, snake) => {
-            d = util.distanceSquared(point, util.head(snake));
-            return (min === -1 || d < min) ? d : min;
-        }, -1)
-    )
-    if(food.length) {
-        min = -1;
-        food.forEach(point => {
-            d = util.distanceSquared(point, data.head);
-            if((min === -1 || d < min)) {
-                min  = d;
-                goal = point;
-            }
-        });
-        return goal;
-    }
-    return util.center(data);
-    */
 }
 
 function goto(data, goal) {
@@ -94,7 +73,7 @@ function goto(data, goal) {
             .find(snake => snake.id === data.you.id).coords
             .push(point);
 
-        if((min === -1 || d < min) && util.safe(data, point, 256)) {
+        if((min === -1 || d < min) && util.safe(data, point, 512)) {
             min  = d;
             step = point;
         }
