@@ -48,7 +48,7 @@ function next(data) {
 
     data.food.forEach(point => {
 
-        let d = util.distanceSquared(point, goal);
+        let d = util.distanceSquared(point, data.head);
 
         if((min === -1 || d < min)) {
             min  = d;
