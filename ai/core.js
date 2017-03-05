@@ -46,7 +46,18 @@ function next(data) {
     let goal = data.food[0];
     let d;
 
-    let food = data.food.filter(point =>
+    data.food.forEach(point => {
+
+        let d = util.distanceSquared(point, goal);
+
+        if((min === -1 || d < min)) {
+            min  = d;
+            goal = point;
+        }
+    });
+    return goal;
+
+    /*let food = data.food.filter(point =>
         util.distanceSquared(point, data.head) <
         data.otherSnakes.reduce((min, snake) => {
             d = util.distanceSquared(point, util.head(snake));
@@ -65,6 +76,7 @@ function next(data) {
         return goal;
     }
     return util.center(data);
+    */
 }
 
 function goto(data, goal) {
