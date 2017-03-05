@@ -73,7 +73,7 @@ function goto(data, goal) {
             .find(snake => snake.id === data.you.id).coords
             .push(point);
 
-        if((min === -1 || d < min) && util.safe(data, point, 512)) {
+        if((min === -1 || d < min) && util.safe(data, point, 64)) {
             min  = d;
             step = point;
         }
