@@ -106,17 +106,10 @@ const util = {
             return false;
         }
         if(depth === 1) {
-            logger.log(point);
             return true;
         } else {
             if(modifier) {
                 data  = util.nextBoardHeuristic(data, modifier);
-            } else {
-                /*
-                (data = util.dataCopy(data)).snakes
-                    .find(snake => snake.id === data.you.id).coords
-                    .unshift(point);
-                    */
             }
             depth--;
             return (

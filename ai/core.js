@@ -88,6 +88,11 @@ function goto(data, goal) {
     adjacent.forEach(point => {
 
         let d = util.distanceSquared(point, goal);
+        let context = util.dataCopy(data);
+
+        context.snakes
+            .find(snake => snake.id === data.you.id).coords
+            .push(point);
 
         if((min === -1 || d < min) && util.safe(data, point, 128)) {
             min  = d;
