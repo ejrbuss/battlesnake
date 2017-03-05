@@ -77,7 +77,7 @@ function goto(data, goal) {
 
         let d = util.distanceSquared(point, goal);
 
-        if((min === -1 || d < min) && util.safe(data, point, 128)) {
+        if((min === -1 || d < min) && util.safe(data, point, 1)) {
             min  = d;
             step = point;
         }

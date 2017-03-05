@@ -36,7 +36,14 @@ function move(move) {
     } else {
         snake.pop();
     }
-    snake.unshift(movePoint);
+
+    if(dead()) {
+        show();
+        console.log('Game Over');
+    } else {
+        snake.unshift(movePoint);
+        return next(move);
+    }
 }
 
 function getRandomInt(min, max) {
@@ -45,6 +52,16 @@ function getRandomInt(min, max) {
 
 function randomPoint() {
     return [getRandomInt(0, 10), getRandomInt(0, 10)];
+}
+
+function dead() {
+    let point = snake[0];
+    return point[1] < 0
+        point[0] >= 10
+        || point[1] >= 10
+        || snake.some(coord =>
+            util.pequal(coord, point)
+        );
 }
 
 
