@@ -27,15 +27,16 @@ function move(req) {
     let step = goto(data, goal);
     logger.log({ status : 'step', step : step });
     let move = todirection(data, step);
-    logger.log({ status : 'todirection', move : move });
-    return hopeless
+    return logger.log(hopeless
         ? seppuku(data)
-        : move;
+        : move
+    );
 }
 
 function setup(data) {
-    data.you  = data.snakes.find(snake => snake.id === data.you);
-    data.head = util.head(data.you);
+    data.you         = data.snakes.find(snake => snake.id === data.you);
+    data.otherSnakes = data.snakes.filter(snake => snake.id !== data.you.id);
+    data.head        = util.head(data.you);
     return data;
 }
 
@@ -43,17 +44,27 @@ function next(data) {
 
     let min  = -1;
     let goal = data.food[0];
+    let d;
 
-    data.food.forEach(point => {
-
-        let d = util.distanceSquared(point, data.head);
-
-        if((min === -1 || d < min)) {
-            min  = d;
-            goal = point;
-        }
-    });
-    return goal;
+    let food = data.food.filter(point =>
+        util.distanceSquared(point, data.head) <
+        data.otherSnakes.reduce((min, snake) => {
+            d = util.distanceSquared(point, util.head(snake));
+            return (min === -1 || d < min) ? d : min;
+        }, -1)
+    )
+    if(food.length) {
+        min = -1;
+        food.forEach(point => {
+            d = util.distanceSquared(point, data.head);
+            if((min === -1 || d < min)) {
+                min  = d;
+                goal = point;
+            }
+        });
+        return goal;
+    }
+    return util.center(data);
 }
 
 function goto(data, goal) {
