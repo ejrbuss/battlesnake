@@ -52,7 +52,7 @@ const util = {
         });
         return next;
     },
-
+/*
     safe(data, point, depth=1) {
         if(depth === 1) {
             return !(point[0] < 0
@@ -87,12 +87,12 @@ const util = {
         }
         return true
     },
+    */
 
-    safe_old(data, point, depth=1, modifier) {
+    safe(data, point, depth=1, modifier) {
 
         if(modifier) {
             point = modifier(point);
-            data  = util.nextBoardHeuristic(data, modifier);
         }
 
         if(point[0] < 0
@@ -109,13 +109,20 @@ const util = {
             logger.log(point);
             return true;
         } else {
+            if(modifier) {
+                data  = util.nextBoardHeuristic(data, modifier);
+            } else {
+                data.snakes
+                    .find(snake => snake.id === data.you.id).coords
+                    .unshift(point);
+            }
             depth--;
             return (
                 util.safe(data, point, depth, util.left)  ||
                 util.safe(data, point, depth, util.right) ||
                 util.safe(data, point, depth, util.up)    ||
                 util.safe(data, point, depth, util.down)
-            ) && logger.log(point) && true;
+            );
         }
     },
 
