@@ -112,7 +112,7 @@ const util = {
             if(modifier) {
                 data  = util.nextBoardHeuristic(data, modifier);
             } else {
-                data = util.dataCopy(data).snakes
+                (data = util.dataCopy(data)).snakes
                     .find(snake => snake.id === data.you.id).coords
                     .unshift(point);
             }
